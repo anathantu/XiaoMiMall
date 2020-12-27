@@ -1,0 +1,3 @@
+com\imooc\mall\MallApplication.class
+com\imooc\mall\dao\CategoryMapper.class
+com\imooc\mall\pojo\Category.class
