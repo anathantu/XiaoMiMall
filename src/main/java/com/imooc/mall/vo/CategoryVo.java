@@ -1,21 +1,28 @@
-package com.imooc.mall.pojo;
+package com.imooc.mall.vo;
 
-import java.util.Date;
+import java.util.List;
 
-public class Category {
+public class CategoryVo {
+
     private Integer id;
 
     private Integer parentId;
 
     private String name;
 
-    private Boolean status;
-
     private Integer sortOrder;
 
-    private Date createTime;
+    private List<CategoryVo> subCategories;
 
-    private Date updateTime;
+    public CategoryVo() {
+    }
+
+    public CategoryVo(Integer id, Integer parentId, String name, Integer sortOrder) {
+        this.id = id;
+        this.parentId = parentId;
+        this.name = name;
+        this.sortOrder = sortOrder;
+    }
 
     public Integer getId() {
         return id;
@@ -38,15 +45,7 @@ public class Category {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
+        this.name = name;
     }
 
     public Integer getSortOrder() {
@@ -57,32 +56,22 @@ public class Category {
         this.sortOrder = sortOrder;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public List<CategoryVo> getSubCategories() {
+        return subCategories;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setSubCategories(List<CategoryVo> subCategories) {
+        this.subCategories = subCategories;
     }
 
     @Override
     public String toString() {
-        return "Category{" +
+        return "CategoryVo{" +
                 "id=" + id +
                 ", parentId=" + parentId +
                 ", name='" + name + '\'' +
-                ", status=" + status +
                 ", sortOrder=" + sortOrder +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
+                "\n subCategories=" + subCategories +
+                '}'+"\n";
     }
 }
