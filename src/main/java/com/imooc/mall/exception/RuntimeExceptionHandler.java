@@ -11,7 +11,6 @@ public class RuntimeExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseBody
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseVo handler(RuntimeException e){
         return ResponseVo.error(ResponseEnum.ERROR,e.getMessage());
     }

@@ -2,8 +2,8 @@ package com.imooc.mall.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.imooc.mall.enums.ResponseEnum;
-import com.imooc.mall.pojo.Product;
 import com.imooc.mall.service.impl.ProductServiceImpl;
+import com.imooc.mall.vo.ProductDetailVo;
 import com.imooc.mall.vo.ProductVo;
 import com.imooc.mall.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +31,10 @@ public class ProductController {
     }
 
     @GetMapping("/products/{productId}")
-    public ResponseVo<Product> detail(@PathVariable("productId") Integer productId){
-        Product product = productService.productDetail(productId);
+    public ResponseVo<ProductDetailVo> detail(@PathVariable("productId") Integer productId){
+        ProductDetailVo product = productService.productDetail(productId);
         if(product==null)
             return ResponseVo.error(ResponseEnum.PRODUCT_OFF_SALE_OR_DELETE);
-        return ResponseVo.success();
+        return ResponseVo.success(product);
     }
 }
