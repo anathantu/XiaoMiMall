@@ -1,10 +1,14 @@
 package com.imooc.mall.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.imooc.mall.enums.ResponseEnum;
+import com.imooc.mall.pojo.Product;
 import com.imooc.mall.service.impl.ProductServiceImpl;
 import com.imooc.mall.vo.ProductVo;
 import com.imooc.mall.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,8 +23,18 @@ public class ProductController {
     //TODO 查找品类可以用缓存保存，提高性能
     //暂时先采用查找品类及子品类，再找到品类下所有商品的方法
     @GetMapping("/products")
-    public ResponseVo<List<ProductVo>> products(@RequestParam("categoryId") Integer categoryId){
-        List<ProductVo> productVoList=productService.list(categoryId);
-        return ResponseVo.success(productVoList);
+    public ResponseVo<PageInfo<List<ProductVo>>> list(@RequestParam(required = false,defaultValue = "0") Integer categoryId,
+                                                          @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                                          @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
+        PageInfo<List<ProductVo>> pageInfo = productService.list(categoryId, pageNum, pageSize);
+        return ResponseVo.success(pageInfo);
+    }
+
+    @GetMapping("/products/{productId}")
+    public ResponseVo<Product> detail(@PathVariable("productId") Integer productId){
+        Product product = productService.productDetail(productId);
+        if(product==null)
+            return ResponseVo.error(ResponseEnum.PRODUCT_OFF_SALE_OR_DELETE);
+        return ResponseVo.success();
     }
 }

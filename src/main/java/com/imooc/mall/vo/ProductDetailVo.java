@@ -1,8 +1,9 @@
 package com.imooc.mall.vo;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
-public class ProductVo {
+public class ProductDetailVo {
 
     private Integer id;
 
@@ -14,9 +15,19 @@ public class ProductVo {
 
     private String mainImage;
 
-    private Integer status;
+    private String subImages;
+
+    private String detail;
 
     private BigDecimal price;
+
+    private Integer stock;
+
+    private Integer status;
+
+    private Date createTime;
+
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -58,12 +69,20 @@ public class ProductVo {
         this.mainImage = mainImage;
     }
 
-    public Integer getStatus() {
-        return status;
+    public String getSubImages() {
+        return subImages;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setSubImages(String subImages) {
+        this.subImages = subImages;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
     public BigDecimal getPrice() {
@@ -74,16 +93,53 @@ public class ProductVo {
         this.price = price;
     }
 
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     @Override
     public String toString() {
-        return "ProductVo{" +
+        return "ProductDetailVo{" +
                 "id=" + id +
                 ", categoryId=" + categoryId +
                 ", name='" + name + '\'' +
                 ", subtitle='" + subtitle + '\'' +
                 ", mainImage='" + mainImage + '\'' +
-                ", status=" + status +
+                ", subImages='" + subImages + '\'' +
+                ", detail='" + detail + '\'' +
                 ", price=" + price +
+                ", stock=" + stock +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

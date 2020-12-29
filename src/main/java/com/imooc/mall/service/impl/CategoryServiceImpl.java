@@ -24,30 +24,22 @@ public class CategoryServiceImpl implements ICategoryService {
     public ResponseVo<List<CategoryVo>> selectAll() {
 
         if (map != null) {
-            return ResponseVo.success(map.getOrDefault(MallConst.ROOT_PARENT_ID,new ArrayList<>()));
+            return ResponseVo.success(map.getOrDefault(MallConst.ROOT_PARENT_ID, new ArrayList<>()));
         }
         map = new HashMap<>();
         findSubCategories();
-        return ResponseVo.success(map.getOrDefault(MallConst.ROOT_PARENT_ID,new ArrayList<>()));
+        return ResponseVo.success(map.getOrDefault(MallConst.ROOT_PARENT_ID, new ArrayList<>()));
     }
 
     public List<Integer> findSubCategoryId(Integer categoryId) {
-        List<Integer> list;
+        List<Integer> list = new ArrayList<>();
+        list.add(categoryId == null ? MallConst.ROOT_PARENT_ID : categoryId);
         if (map == null) {
             map = new HashMap<>();
             findSubCategories();
         }
-        if(categoryId==null){
-            Set<Integer> integers = map.keySet();
-            list=new ArrayList<>();
-            for (Integer i:integers
-                 ) {
-                list.add(i);
-            }
-        }else{
-            list=new ArrayList<>();
-            findSubCategoryIdList(categoryId,list);
-        }
+        findSubCategoryIdList(categoryId == null ? MallConst.ROOT_PARENT_ID : categoryId, list);
+
         return list;
     }
 
@@ -70,13 +62,13 @@ public class CategoryServiceImpl implements ICategoryService {
         }
     }
 
-    private void findSubCategoryIdList(Integer categoryId,List<Integer> list){
-        List<CategoryVo> categoryVoList = map.getOrDefault(categoryId,new ArrayList<>());
-        if(categoryVoList==null||categoryVoList.size()==0)
+    private void findSubCategoryIdList(Integer categoryId, List<Integer> list) {
+        List<CategoryVo> categoryVoList = map.getOrDefault(categoryId, new ArrayList<>());
+        if (categoryVoList == null || categoryVoList.size() == 0)
             return;
-        for(CategoryVo categoryVo:categoryVoList){
+        for (CategoryVo categoryVo : categoryVoList) {
             list.add(categoryVo.getId());
-            findSubCategoryIdList(categoryVo.getId(),list);
+            findSubCategoryIdList(categoryVo.getId(), list);
         }
     }
 }

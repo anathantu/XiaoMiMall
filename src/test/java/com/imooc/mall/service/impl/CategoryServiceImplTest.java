@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 public class CategoryServiceImplTest extends MallApplicationTests {
 
     @Autowired
@@ -20,7 +18,7 @@ public class CategoryServiceImplTest extends MallApplicationTests {
 
     @Test
     public void findSubCategoryId() {
-        List<Integer> subCategoryId = categoryService.findSubCategoryId(100001);
+        List<Integer> subCategoryId = categoryService.findSubCategoryId(null);
         for (Integer i:subCategoryId)
             System.out.println(i);
     }
