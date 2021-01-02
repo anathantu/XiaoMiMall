@@ -8,6 +8,30 @@ spring:
     host: 192.168.225.128
     port: 6379
     password: 123456
+  rabbitmq:
+    host: 192.168.225.128
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    #消费者的数量
+    listener:
+      simple:
+        concurrency: 10
+        max-concurrency: 10
+        #每次取几个
+        prefetch: 1
+        auto-startup: true
+        #消费失败之后重新加入到队列
+        default-requeue-rejected: true
+    #重试的配置
+    template:
+      retry:
+        enabled: true
+        initial-interval: 1000
+        max-attempts: 3
+        max-interval: 10000
+        multiplier: 1.0
 mybatis:
   configuration:
     map-underscore-to-camel-case: true

@@ -189,4 +189,28 @@ public class CartServiceImpl implements ICartService {
         return ResponseVo.success(sum);
     }
 
+    public List<Cart> allCartList(Integer uid){
+        String redisKey = String.format(CART_REDIS_KEY_TEMPLATE,uid);
+        HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
+        Map<String, String> entries = opsForHash.entries(redisKey);
+        List<Cart> list=new ArrayList<>();
+        for(Map.Entry<String,String> entry:entries.entrySet()){
+            Cart cart = gson.fromJson(entry.getValue(),Cart.class);
+            list.add(cart);
+        }
+        return list;
+    }
+
+    public List<Cart> selectedCartList(Integer uid){
+        String redisKey = String.format(CART_REDIS_KEY_TEMPLATE,uid);
+        HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
+        Map<String, String> entries = opsForHash.entries(redisKey);
+        List<Cart> list=new ArrayList<>();
+        for(Map.Entry<String,String> entry:entries.entrySet()){
+            Cart cart = gson.fromJson(entry.getValue(),Cart.class);
+            if(cart.getProductSelected())
+                list.add(cart);
+        }
+        return list;
+    }
 }
